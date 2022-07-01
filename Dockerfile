@@ -4,7 +4,7 @@ LABEL version="1.0"
 # Update Ubuntu reporitories and install download tool
 RUN apt update && \
     apt install -y build-essential wget git && \
-    DEBIAN_FRONTEND=noninteractive apt install -y git openmpi-common openmpi-bin libopenmpi-dev cmake
+    DEBIAN_FRONTEND=noninteractive apt install -y git openmpi-common openmpi-bin libopenmpi-dev cmake make
      
 
 
