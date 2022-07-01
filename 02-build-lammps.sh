@@ -3,9 +3,6 @@ function fail() {
 	echo "ERROR: $@"
 	exit 1
 }
-cd utils
-make
-cd ../
 
 mkdir build || fail "Could not create the build directory"
 
