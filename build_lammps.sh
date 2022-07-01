@@ -4,9 +4,10 @@ function fail() {
 	exit 1
 }
 
-if [ ! -d "build" ]; then
+# if [ ! -d "build" ]; then
+# mkdir build || fail "Could not create the build directory"
+# fi
 mkdir build || fail "Could not create the build directory"
-fi
 
 docker run --rm --user=$(id -u):$(id -g) -v $(pwd):$(pwd) -w $(pwd)/utils ubuntu:mpi-dev make -j 2  || \
 	fail "Error when building utils" 
