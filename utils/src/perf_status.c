@@ -7,7 +7,7 @@ void set_out_file(char* fileName)
   char path[80];
   strcpy(path, "../results/"); strcat(path, fileName); strcat(path, ".csv");
   out_file = fopen(path, "w");
-  fprintf(out_file, "Rank,ParamountInteration,InterationTime,AccumulatedTime\n");
+  fprintf(out_file, "Rank,ParamountIteration,IterationTime,AccumulatedTime\n");
 }
 
 void set_early_stop_(int number)
@@ -60,7 +60,7 @@ void end_iteration_()
     accumulated_time += end_time_pi;
 
     print_timestep(PRINT_ITERATION);
-    if(early_stop && current_iteration >= stop_in) {
+    if(early_stop && accumulated_time >= stop_in) {
       MPI_Finalize();
       if (extern_file) fclose(out_file);
       exit(0);
@@ -72,8 +72,8 @@ void print_timestep(int type)
 {
   int rank;
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-  if (extern_file == false)
-  {
+//   if (extern_file == false)
+//   {
     switch(type)
     {
       case PRINT_ITERATION:
@@ -85,14 +85,14 @@ void print_timestep(int type)
         if (!enable_pi) printf("[APP-INFO] Application Info:Total time=%f\n", total_time_application);
         break;
     }
-  } else
+  //} else
+  if (extern_file == true) 
   {
     fprintf(out_file, "%i", rank); fprintf(out_file, ",");
     fprintf(out_file, "%i", current_iteration); fprintf(out_file, ",");
     fprintf(out_file, "%f", end_time_pi); fprintf(out_file, ",");
     fprintf(out_file, "%f", accumulated_time); fprintf(out_file, "\n");
   }
-
 }
 
 void set_enable(int x)
